@@ -11,7 +11,7 @@ class Enemy {
 	// The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
 		this.sprite = 'images/enemy-bug.png';
-		
+	}
 		// Update the enemy's position, required method for game
 		update(){
 	
@@ -22,7 +22,7 @@ render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-	}
+	
 
 
 // Now write your own player class
