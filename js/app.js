@@ -1,5 +1,6 @@
 
 let speed = 1;
+let enemyNumber=0;
 const posY = [60, 150, 230];
 const posX = [-100,-200,-300,-400,-500];
 // Enemies our player must avoid
@@ -8,7 +9,7 @@ class Enemy {
 		this.x = x;
 		this.y =y;
 		this.dt = Math.floor(Math.random() * 2 + 1) * speed;
-        this.collision = false;
+        this.collision = false;		
 		this.w = 101;
 		this.h = 171;
 	// The image/sprite for our enemies, this uses
@@ -17,16 +18,24 @@ class Enemy {
 	}
 		// Update the enemy's position, required method for game
 		update(){
-	    this.isCollision();
+		this.isCollision();
 		this.isCollisionEnemy();
-	this.x += speed * this.dt;
+		this.x += speed * this.dt;
 	//This condition checks when enemy is out of board 
-        if (this.x >= 505) {
-			this.x = posX[Math.floor(Math.random()*posX.length)];
-			// Returns a random position of enemy
-			this.y =posY[Math.floor(Math.random()*posY.length)];
+        if (this.x >= 520) {
+			this.y =posY[enemyNumber];
+			this.x = posX[enemyNumber];
 			this.dt = Math.floor(Math.random() * 2 + 1) * speed;
+			enemyNumber++;
+			if (enemyNumber ===3) {
+				enemyNumber =0;
 			}
+		 
+		}
+				
+									
+			
+			
 }
 // Draw the enemy on the screen, required method for game
 render() {
@@ -45,7 +54,7 @@ isCollision(){
 //prevent collision of enemies
 isCollisionEnemy(){
 	allEnemies.forEach(enemy => {
-if ((enemy.x +20< this.x + this.w && enemy.x + enemy.w +20 > this.x && this.y === enemy.y)) {
+if (enemy.x +20< this.x + this.w && enemy.x + enemy.w +20 > this.x && this.y === enemy.y) {
 	
 	this.dt = enemy.dt;
             }
@@ -65,7 +74,7 @@ if ((enemy.x +20< this.x + this.w && enemy.x + enemy.w +20 > this.x && this.y ==
 class Player{
 	constructor(x,y){
 		this.x = x;
-		this.y = y;
+		this.y = y;		
 		this.avatar ='images/char-boy.png';
 	}
 	update() {
@@ -106,9 +115,9 @@ class Player{
 const enemy1 = new Enemy(-100, 60);
 const enemy2 = new Enemy(-150, 145);
 const enemy3 = new Enemy(-100, 230);
-const enemy4 = new Enemy(-290, 60)
-const enemy5 = new Enemy(-250, 145)
-const enemy6 = new Enemy(-300, 230)
+const enemy4 = new Enemy(-290, 60);
+const enemy5 = new Enemy(-350, 145);
+const enemy6 = new Enemy(-400, 230);
 const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
 const player = new Player(200,400);
 
