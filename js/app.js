@@ -1,6 +1,7 @@
 
 let speed = 1;
-
+const posY = [60, 150, 230];
+const posX = [-100,-200,-300,-400,-500];
 // Enemies our player must avoid
 class Enemy {
 	constructor(x,y) {
@@ -8,20 +9,53 @@ class Enemy {
 		this.y =y;
 		this.dt = Math.floor(Math.random() * 2 + 1) * speed;
         this.collision = false;
+		this.w = 101;
+		this.h = 171;
 	// The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
 		this.sprite = 'images/enemy-bug.png';
 	}
 		// Update the enemy's position, required method for game
 		update(){
-	
+	    this.isCollision();
+		this.isCollisionEnemy();
 	this.x += speed * this.dt;
+	//This condition checks when enemy is out of board 
+        if (this.x >= 505) {
+			this.x = posX[Math.floor(Math.random()*posX.length)];
+			// Returns a random position of enemy
+			this.y =posY[Math.floor(Math.random()*posY.length)];
+			this.dt = Math.floor(Math.random() * 2 + 1) * speed;
+			}
 }
 // Draw the enemy on the screen, required method for game
 render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+// Axis-Aligned Bounding Box where width = 70 px and height = 60 px
+isCollision(){
+	if (this.x <player.x + 70 &&
+   this.x + 70 > player.x &&
+   this.y < player.y + 60 &&
+   60 + this.y > player.y) {
+    this.dt =0;// collision detected!
+	this.collision = true;
+}
+}
+//prevent collision of enemies
+isCollisionEnemy(){
+	allEnemies.forEach(enemy => {
+if ((enemy.x +20< this.x + this.w && enemy.x + enemy.w +20 > this.x && this.y === enemy.y)) {
+	
+	this.dt = enemy.dt;
+            }
+			
+   
+   
+});
+}
 
+}
 	
 
 
