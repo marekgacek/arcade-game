@@ -79,10 +79,21 @@ class Player{
 	}
 	update() {
 		this.render();
+		this.waterLevel();
 	}
 	 render() {
         ctx.drawImage(Resources.get(this.avatar), this.x, this.y);
     }
+	//Reset player position after reaching water
+	waterLevel(){
+		if (this.y <0) {
+			setTimeout( function(){
+				player.x = 200;
+				player.y = 400;
+			},400);
+		}
+	}
+	
 	handleInput(key){
 		switch (key) {
 			case 'left':
