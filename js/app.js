@@ -3,6 +3,8 @@ let speed = 1;
 let enemyNumber=0;
 const posY = [60, 150, 230];
 const posX = [-100,-200,-300,-400,-500];
+const hearths = document.querySelector('.hearths');
+const score = document.querySelector('.score');
 // Enemies our player must avoid
 class Enemy {
 	constructor(x,y) {
@@ -30,9 +32,8 @@ class Enemy {
 			if (enemyNumber ===3) {
 				enemyNumber =0;
 			}
-		 
+		 this.dt = Math.floor(Math.random() * 2 + 1) * speed;
 		}
-				
 									
 			
 			
@@ -49,6 +50,9 @@ isCollision(){
    60 + this.y > player.y) {
     this.dt =0;// collision detected!
 	this.collision = true;
+	            if (hearths.lastElementChild) {
+                hearths.removeChild(hearths.lastElementChild)
+            }
 }
 }
 //prevent collision of enemies
@@ -76,6 +80,8 @@ class Player{
 		this.x = x;
 		this.y = y;		
 		this.avatar ='images/char-boy.png';
+		this.lives = 3;
+        this.points = 0;
 	}
 	update() {
 		this.render();
@@ -83,6 +89,12 @@ class Player{
 	}
 	 render() {
         ctx.drawImage(Resources.get(this.avatar), this.x, this.y);
+    }
+	addPoints() {
+        if (this.y > -25 && this.y < 240) {
+            this.points += 10;
+            score.innerHTML = 'SCORE: ' + player.points;
+        }
     }
 	//Reset player position after reaching water
 	waterLevel(){
@@ -99,21 +111,25 @@ class Player{
 			case 'left':
 			if (this.x >0) {
 				this.x -= 100;
+				this.addPoints();
 			}
 			break;
 			case 'right':
 			if (this.x <400) {
 				this.x += 100;
+				this.addPoints();
 			}
 			break;
 			case 'up':
 			if (this.y >0) {
 				this.y -= 90;
+				this.addPoints();
 			}
 			break;
 			case 'down':
 			if (this.y <400) {
 				this.y += 90;
+				this.addPoints();
 			}
 			break;
 		}
