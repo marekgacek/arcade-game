@@ -1,3 +1,105 @@
 body {
     text-align: center;
 }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/* * Styles for the Score Panel */
+.score-panel {
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
+}
+
+
+.score-panel .hearths {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+
+.hearths img{
+width: 40px;
+  list-style: none;
+  display: inline;
+}
+
+
+.score-panel .restart {
+  float: right;
+  cursor: pointer;
+}
+.start {
+    width:  300px;
+    height:  200px;
+    background-color:  gainsboro;
+    position:  absolute;
+    left: 25%;
+    margin-left: auto;
+    margin-right:  auto;
+    top: 22%;
+    border-radius: 10px;
+    border: 1px solid #f3eaea;
+    display: none;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.text {
+    position: absolute;
+    width: 100%;    
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav {
+    width: 20%;
+    height: 50%;
+    margin: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+#left {
+    margin-left: 15px;
+}
+
+.player {
+    
+    width: 50%;
+    height: 50%;
+
+}
+
+.player img {
+    cursor: pointer;
+}
+/*
+ * Lives panel
+ */
+
+ .hearths {
+    width: 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 2em;
+ }
+
+ .hearths img {
+    width: 40px;
+    
+ }
+
+ .hearths ul {
+    padding: 0.5em;
+ }
+
+ .hearths li{
+    list-style: none;
+    padding: 0;
+ }

@@ -5,6 +5,13 @@ const posY = [60, 150, 230];
 const posX = [-100,-200,-300,-400,-500];
 const hearths = document.querySelector('.hearths');
 const score = document.querySelector('.score');
+const playerImages = [
+    'images/char-boy.png',
+    'images/char-cat-girl.png',
+    'images/char-horn-girl.png',
+    'images/char-pink-girl.png',
+    'images/char-princess-girl.png',
+];
 // Enemies our player must avoid
 class Enemy {
 	constructor(x,y) {
@@ -26,8 +33,7 @@ class Enemy {
 	//This condition checks when enemy is out of board 
         if (this.x >= 520) {
 			this.y =posY[enemyNumber];
-			this.x = posX[enemyNumber];
-			this.dt = Math.floor(Math.random() * 2 + 1) * speed;
+			this.x = posX[enemyNumber];			
 			enemyNumber++;
 			if (enemyNumber ===3) {
 				enemyNumber =0;
@@ -49,10 +55,11 @@ isCollision(){
    this.y < player.y + 60 &&
    60 + this.y > player.y) {
     this.dt =0;// collision detected!
-	this.collision = true;
+	
 	            if (hearths.lastElementChild) {
                 hearths.removeChild(hearths.lastElementChild)
             }
+			this.collision = true;
 }
 }
 //prevent collision of enemies
@@ -76,19 +83,24 @@ if (enemy.x +20< this.x + this.w && enemy.x + enemy.w +20 > this.x && this.y ===
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player{
-	constructor(x,y){
+	constructor(look = 0,x,y){
+		this.look = this.changeLook(look, playerImages);
 		this.x = x;
-		this.y = y;		
-		this.avatar ='images/char-boy.png';
+		this.y = y;			
 		this.lives = 3;
         this.points = 0;
 	}
+	//This method change Avatar
+    changeLook(look, array) {
+        this.look = array[look]
+        return this.look;
+    }
 	update() {
 		this.render();
 		this.waterLevel();
 	}
 	 render() {
-        ctx.drawImage(Resources.get(this.avatar), this.x, this.y);
+        ctx.drawImage(Resources.get(this.look), this.x, this.y);
     }
 	addPoints() {
         if (this.y > -25 && this.y < 240) {
@@ -105,6 +117,7 @@ class Player{
 			},400);
 		}
 	}
+	
 	
 	handleInput(key){
 		switch (key) {
@@ -146,7 +159,7 @@ const enemy4 = new Enemy(-290, 60);
 const enemy5 = new Enemy(-350, 145);
 const enemy6 = new Enemy(-400, 230);
 const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
-const player = new Player(200,400);
+const player = new Player(0,200,400);
 
 
 // This listens for key presses and sends the keys to your

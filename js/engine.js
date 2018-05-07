@@ -23,11 +23,11 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
-
+	const container = document.querySelector('.container');
     canvas.width = 505;
     canvas.height = 606;
-    doc.body.appendChild(canvas);
-
+    container.appendChild(canvas);
+    let myReq;
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -55,19 +55,97 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        win.requestAnimationFrame(main);
-    }
+         myReq = requestAnimationFrame(main);
+		
+		allEnemies.forEach(function (enemy) {
+			if (enemy.collision === true) {
+				cancelAnimationFrame(myReq);
+				player.x = 200;
+                player.y = 400;
+                player.lives--;
+				if (player.lives !== 0) {
+
+                    setTimeout(() => {                                           
+					myReq = requestAnimationFrame(main);
+                    }, 1000)
+                } else {
+                    setTimeout(() => {                        
+                        player.update();
+                        reset();
+                    }, 1000)
+                }
+                enemy.collision = false;
+                enemy.dt = Math.floor(Math.random() * 3 + 1)
+
+			}
+    });
+	}
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
      */
     function init() {
-        reset();
+       // reset();
         lastTime = Date.now();
-        main();
+		render();
+        start();
+      
     }
+   function start() {
+        const startPanel = document.querySelector('.start');
+        startPanel.style.display = 'flex';
+        const playerImg = document.querySelector('.player');
 
+        playerImg.addEventListener('click', function() {
+            player.update(); 
+			cancelAnimationFrame(myReq);			
+            main();            
+            startPanel.style.display = 'none';
+        });
+		//Display counter
+
+        score.innerHTML = 'SCORE: ' + player.points;
+		
+		//Choosing player's avatar
+
+        const leftArrow = document.querySelector('#left');
+        const rightArrow = document.querySelector('#right');
+        let count = 0;
+
+        //Change Avatar in right
+        rightArrow.addEventListener('click', () => {
+            count++;
+            if (count === playerImages.length) {
+                count = 0;
+            }
+            playerImg.firstElementChild.src = playerImages[count];
+            player.changeLook(count, playerImages);
+            render();
+        });
+
+        //Change avatar in left
+        leftArrow.addEventListener('click', () => {
+            count--;
+            if (count < 0) {
+                count = playerImages.length - 1;
+            }
+            playerImg.firstElementChild.src = playerImages[count];
+            player.changeLook(count, playerImages);
+            render();
+        });
+		  // Add heart to panel lives
+
+        const hearths = document.querySelector('.hearths')
+        if (hearths.lastElementChild) {
+            hearths.removeChild(hearths.lastElementChild)
+        }
+        for (i = 0; i < player.lives; i++) {
+            let live = document.createElement('li');
+            live.innerHTML = '<img src="images/heart.png" alt="heart">';
+            document.querySelector('.hearths').appendChild(live)
+        }
+    }
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
      * you implement your collision detection (when two entities occupy the
@@ -162,6 +240,15 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+		allEnemies.forEach(function (enemy) {
+            enemy.x = -180;
+			enemy.dt = Math.floor(Math.random() * 3 + 1);            
+			});			
+			 player.lives = 3;
+			 player.points = 0;
+			 render();
+			start();
+        
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -173,7 +260,14 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+		'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+        'images/navigate_left.png',
+        'images/navigate_right.png',
+		'images/heart.png',
     ]);
     Resources.onReady(init);
 
