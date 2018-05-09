@@ -1,6 +1,7 @@
 body {
     text-align: center;
 }
+
 .container {
     width: 650px;
     margin-left: auto;
@@ -12,6 +13,7 @@ body {
     
     
 }
+
 h1 {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
@@ -35,12 +37,14 @@ h1 {
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
 	z-index: 10;
 }
+
 .text {
     position: absolute;
     width: 100%;    
     font-size: 1.5em;
     font-weight: bold;
 }
+
 .nav {
     margin: auto;
     box-sizing: border-box;
@@ -48,6 +52,7 @@ h1 {
     flex-wrap: wrap;
     cursor: pointer;
 }
+
 .player img {
     cursor: pointer;
 }
