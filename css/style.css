@@ -2,52 +2,39 @@ body {
     text-align: center;
 }
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    padding-top: 2em;
+    
+    
 }
-/* * Styles for the Score Panel */
-.score-panel {
-  text-align: left;
-  width: 345px;
-  margin-bottom: 10px;
-}
-
-
-.score-panel .hearths {
-  margin: 0;
-  padding: 0;
-  display: inline-block;
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
 }
 
-
-.hearths img{
-width: 40px;
-  list-style: none;
-  display: inline;
-}
-
-
-.score-panel .restart {
-  float: right;
-  cursor: pointer;
-}
-.start {
+/*
+ * Start panel
+ */
+ .start {
     width:  300px;
     height:  200px;
-    background-color:  gainsboro;
+    background-color:  gray;
     position:  absolute;
-    left: 25%;
+    left: 43%;
     margin-left: auto;
     margin-right:  auto;
-    top: 22%;
+    top: 40%;
     border-radius: 10px;
     border: 1px solid #f3eaea;
     display: none;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+	z-index: 10;
 }
-
 .text {
     position: absolute;
     width: 100%;    
@@ -55,39 +42,26 @@ width: 40px;
     font-weight: bold;
 }
 .nav {
-    width: 20%;
-    height: 50%;
     margin: auto;
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
 }
-
-#left {
-    margin-left: 15px;
-}
-
-.player {
-    
-    width: 50%;
-    height: 50%;
-
-}
-
 .player img {
     cursor: pointer;
 }
+
 /*
  * Lives panel
  */
 
- .hearths {
-    width: 60px;
+ .lives {    
     box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
     padding-top: 2em;
+	
  }
 
  .hearths img {
@@ -102,4 +76,19 @@ width: 40px;
  .hearths li{
     list-style: none;
     padding: 0;
+ }
+ /*
+ * Counter panel
+ */
+ 
+ .score {
+    width: 400px;
+    height: 30px;    
+    font-weight: bold;
+    font-size: 3em;    
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 25%;
  }
